@@ -1,0 +1,34 @@
+@import './variables.css';
+
+/*Navigace */
+.navigace {
+    padding: 1em;
+    background-color: var(--hlavni-barva);
+    box-shadow: var(--shadow);
+  }
+  
+  .nav-seznam {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+    align-items: center;
+   }
+  
+  .nav-seznam-item {
+    list-style: none;
+    padding: 0.5em;
+  }
+  
+  li:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--sekundarni-barva);
+    text-decoration-thickness: 0.3em;
+    text-underline-offset: 0.5em;
+  }
+  
+  .nav-seznam-item a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 1.3em;
+    font-weight: bold;
+  }

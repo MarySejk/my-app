@@ -1,0 +1,10 @@
+@import './variables.css';
+
+.seznam {
+    display:flex;
+    flex-direction: column;
+}
+
+.seznam-item {
+    list-style: none;
+}

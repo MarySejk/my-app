@@ -1,0 +1,22 @@
+:root {
+  /* 🎨 Barvy */
+  --barva-pozadi: #f9f9f9;
+  --hlavni-barva: rgb(195, 236, 179, 0.7);
+  --sekundarni-barva: #b7babd;
+  --text: #464141;
+  --text-light: #666;
+  --shadow: 0 0 0 2px rgb(195, 236, 179, 0.7);
+  --border: 1px solid  #666;
+
+    /* 🧱 Rozměry */
+    --odsazeni: 1.5em;
+  --radius: 1em;
+  --line-height: 1.6;
+  --velikost-pisma: 1.2em;
+
+  /* ⏱ Přechody */
+  --transition: all 0.3s ease;
+
+  /* options */
+
+}
