@@ -1,10 +1,31 @@
 @import './variables.css';
 
+.seznam-container {
+    display: flex;
+    justify-content: center;
+    margin: 2em;
+}
+
 .seznam {
     display:flex;
     flex-direction: column;
+    width: 60%;
+    justify-content: center;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
 }
 
+.seznam-nadpis {
+    display: flex;
+    justify-content: center;
+    padding: var(--odsazeni);
+    font-size: 1.4em;
+}
+.seznam-check {
+      accent-color: var(--hlavni-barva);
+}
 .seznam-item {
     list-style: none;
+    margin-bottom: 1em;
 }

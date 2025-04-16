@@ -13,7 +13,8 @@ const mujStyl = {
         fontSize: "1em",
         border: "var(--border)",
         boxShadow: state.isFocused ? "var(--shadow)" : "none",
-
+        marginBottom: "1.5em",
+        cursor: "pointer",
     }),
     menu: (base) => ({
         ...base,
@@ -53,6 +54,7 @@ function Formular() {
     const [seznam, setSeznam] = useState([]);
     const [typVyletu, setTypVyletu] = useState("");
     const [obdobi, setObdobi] = useState("");
+    const [novaPolozka, setNovaPolozka] = useState("");
 
     const handleClick = () => {
         let vybranySeznam = [];
@@ -72,7 +74,11 @@ function Formular() {
             default:
                 vybranySeznam = [];
         }
+        if (novaPolozka.trim() !== ""){
+            vybranySeznam.push(novaPolozka.trim())
+        } 
         setSeznam(vybranySeznam);
+        setNovaPolozka("");
     }
     const handleSelectObdobi = (selected) => {
         if (selected) {
@@ -108,24 +114,38 @@ function Formular() {
                     placeholder="Vyber..."
                     styles={mujStyl}
                 />
+
+                <label className='label'>Chceš přidat něco nabíc?</label>
+                <textarea
+                 placeholder='Název položky...'
+                 className='textarea'
+                 value={novaPolozka}
+                 onChange={(e) => setNovaPolozka(e.target.value)} />
+
                 <div className="tlacitko" onClick={handleClick}>
                     Vytvoř seznam
                 </div>
 
             </form>
-
-            {seznam.length > 0 && (
-                <div>
-                    <h3>
-                        Seznam pro výlet {typVyletu} v období {obdobi}
-                    </h3>
-                    <ul>
-                        {seznam.map((item, index) => (
-                            <li key={index}>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
+            {/*seznam -generování*/}
+            {Array.isArray(seznam) && seznam.length > 0 && (
+                <div className='seznam-container'>
+                    <div className='seznam'>
+                        <h3 className='seznam-nadpis'>
+                            Seznam pro výlet {typVyletu} v období {obdobi}
+                        </h3>
+                        <ul >
+                            {seznam.map((item, index) => (
+                                <li key={index} className='seznam-item'>
+                                    <label >
+                                        <input type='checkbox' className='seznam-check' />
+                                        {""}
+                                        {item}
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             )}
         </div>

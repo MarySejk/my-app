@@ -2,30 +2,51 @@
 
 /*formular*/
 
-  .tlacitko {
-    border-radius: var(--radius);
-    background-color: var(--hlavni-barva);
-    font-weight: bolder;
-    padding: 1em 1.5em;
-    margin-top: 2em;
-    color: var(--text);
-    font-size: var(--velikost-pisma);
-    box-shadow: var(--shadow);
-    border: var(--border);
-    display: flex;
-    justify-content: center;
- 
-      }
-  
-  .tlacitko:hover {
-    background-color: var(--sekundarni-barva);
-    transition: var(--transition);
-    color: var(--barva-pozadi);
-    transform: scale(1.05);
-  }
+.tlacitko {
+  border-radius: var(--radius);
+  background-color: var(--hlavni-barva);
+  font-weight: bolder;
+  padding: 1em 1.5em;
+  margin-top: 1em;
+  color: var(--text);
+  font-size: var(--velikost-pisma);
+  box-shadow: var(--shadow);
+  border: var(--border);
+  display: flex;
+  justify-content: center;
 
-  .label {
-    padding-bottom: 1em;;
-  } 
+}
 
- 
+.tlacitko:hover {
+  /*  background-color: var(--sekundarni-barva); */
+  transition: var(--transition);
+  /* color: var(--barva-pozadi); */
+  transform: scale(1.05);
+}
+
+.label {
+  padding-bottom: 1em;
+  ;
+}
+
+.textarea {
+  border-radius: var(--radius);
+  padding: var(--odsazeni);
+ /*  border: var(--border); */
+  margin-bottom: 1.5em;
+  font-size: 1em;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  outline: auto;
+}
+
+.textarea:hover {
+  box-shadow: var(--shadow);
+}
+
+.textarea:focus {
+  box-shadow: var(--shadow);
+
+}
