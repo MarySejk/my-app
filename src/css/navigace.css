@@ -2,17 +2,31 @@
 
 /*Navigace */
 .navigace {
-    padding: 1em;
     background-color: var(--hlavni-barva);
     box-shadow: var(--shadow);
+    margin:0;
+    width: 100%;
+    padding: 0.5em 0;
   }
   
   .nav-seznam {
     display: flex;
-    justify-content: center;
-    gap: 5em;
+    justify-content: space-between;
     align-items: center;
    }
+
+   @media (min-width: 750px) {
+    .nav-seznam {
+      justify-content: center;
+      gap: 2em;
+    }
+   }
+   @media (min-width: 950px) {
+    .nav-seznam {
+      gap: 5em;
+    }
+   }
+  
   
   .nav-seznam-item {
     list-style: none;

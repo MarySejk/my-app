@@ -1,5 +1,5 @@
 import React from "react";
-import Formular from "../components/Formular";
+import FormularViceDnu from "../components/FormularViceDnu";
 
 
 function Vicedenni() {
@@ -9,7 +9,7 @@ function Vicedenni() {
                 <h2 className="nadpis">
                     Zabal se na více dnů
                 </h2>
-               <Formular />
+               <FormularViceDnu />
                 
             </div>
         </div>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import JednodenniSeznam from "../components/jednodenniSeznam";
+import React from "react";
+/* import JednodenniSeznam from "../components/jednodenniSeznam"; */
 import Formular from "../components/Formular";
 
 function Jednodenni() {
@@ -10,7 +10,7 @@ function Jednodenni() {
                 <h2 className="nadpis">
                     Zabal se na jeden den
                 </h2>
-                <Formular renderOutput={() => <JednodenniSeznam />}/>
+                <Formular />
             </div>
         </div>
     )

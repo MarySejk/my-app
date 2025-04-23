@@ -12,7 +12,7 @@ export const JEDNODENNI_VODA = {
         "Vlhčené ubrousky",
         "Repelent proti hmyzu",
     ],
-    leto: [
+    léto: [
         "Plavky",
         "Ručník",
         "Opalovací krém",
@@ -27,15 +27,15 @@ export const JEDNODENNI_VODA = {
 
     ],
     podzim: [
-        "Teplejší oblečení (mikina, větrovka)",
         "Ručník",
         "Plavky ",
-        "Termoska s teplým čajem",
         "Sluneční brýle",
         "Láhev s vodou",
         "Svačina",
         "Deka",
         "Oblečení na převlečení",
+        "Věci do sprchy (mýdlo, šampon)",
+        "Doklady do bazénu",
     ],
     zima: [
         "Plavky ",

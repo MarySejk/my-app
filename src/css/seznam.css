@@ -9,7 +9,7 @@
 .seznam {
     display:flex;
     flex-direction: column;
-    width: 60%;
+    width: 90%;
     justify-content: center;
     border: var(--border);
     box-shadow: var(--shadow);
@@ -28,4 +28,5 @@
 .seznam-item {
     list-style: none;
     margin-bottom: 1em;
+   
 }

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Select from "react-select";
-import { JEDNODENNI_VODA } from '../data/jednodenni_voda';
-import { JEDNODENNI_MESTO } from '../data/jednodenni_mesto';
-import { JEDNODENNI_PRIRODA } from '../data/jednodenni_priroda';
-import { JEDNODENNI_PRACOVNI } from '../data/jednodenni_pracovni'
+import { VICEDENNI_HOTEL } from '../data/vicedenni_hotel';
+import { VICEDENNI_STAN } from '../data/vicedenni_stan';
 
 const mujStyl = {
     control: (base, state) => ({
@@ -44,37 +42,29 @@ const options_obdobi = [
 ]
 
 const options_typ = [
-    { value: "do města", label: "Do města" },
-    { value: "do přírody", label: "Do přírody" },
-    { value: "k vodě", label: "K vodě" },
-    { value: "pracovní", label: "Pracovní cesta" },
+    { value: "hotel", label: "Hotel nebo penzion" },
+    { value: "stan", label: "Pod stanem" },
 ]
 
-function Formular() {
+function FormularViceDnu() {
     const [seznam, setSeznam] = useState([]);
-    const [typVyletu, setTypVyletu] = useState("");
+    const [typUbytovani, setTypUbytovani] = useState("");
     const [obdobi, setObdobi] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
 
     const handleClick = () => {
-        if (!typVyletu || !obdobi) {
-            alert("Vyber si typ výletu a roční období.");
+        if (!typUbytovani || !obdobi) {
+            alert("Vyber si typ ubytování a roční období.");
             return;
         }
-
+        
         let vybranySeznam = [];
-        switch (typVyletu) {
-            case "k vodě":
-                vybranySeznam = JEDNODENNI_VODA[obdobi];
+        switch (typUbytovani) {
+            case "hotel":
+                vybranySeznam = VICEDENNI_HOTEL;
                 break;
-            case "do města":
-                vybranySeznam = JEDNODENNI_MESTO[obdobi];
-                break;
-            case "do přírody":
-                vybranySeznam = JEDNODENNI_PRIRODA[obdobi];
-                break;
-            case "pracovní":
-                vybranySeznam = JEDNODENNI_PRACOVNI[obdobi];
+            case "stan":
+                vybranySeznam = VICEDENNI_STAN;
                 break;
             default:
                 vybranySeznam = [];
@@ -94,9 +84,9 @@ function Formular() {
 
     const handleSelectTyp = (selected) => {
         if (selected) {
-            setTypVyletu(selected.value)
+            setTypUbytovani(selected.value)
             setSeznam([]);
-        }
+        } 
     }
 
     return (
@@ -111,10 +101,10 @@ function Formular() {
                     styles={mujStyl}
                 />
 
-                <label className="label">Vyber si typ cesty</label>
+                <label className="label">Vyber si typ ubytování</label>
                 <Select
                     options={options_typ}
-                    value={options_typ.find((opt) => opt.value === typVyletu)}
+                    value={options_typ.find((opt) => opt.value === typUbytovani)}
                     onChange={handleSelectTyp}
                     placeholder="Vyber..."
                     styles={mujStyl}
@@ -137,7 +127,7 @@ function Formular() {
                 <div className='seznam-container'>
                     <div className='seznam'>
                         <h3 className='seznam-nadpis'>
-                            Seznam pro výlet {typVyletu} v období {obdobi}
+                            Seznam pro ubytování typu {typUbytovani} v období {obdobi}
                         </h3>
                         <ul >
                             {seznam.map((item, index) => (
@@ -157,4 +147,4 @@ function Formular() {
     );
 }
 
-export default Formular;
+export default FormularViceDnu;
