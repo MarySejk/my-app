@@ -7,10 +7,10 @@
 }
 
 .seznam {
-    display:flex;
+    display: flex;
     flex-direction: column;
+    align-items: center;
     width: 90%;
-    justify-content: center;
     border: var(--border);
     box-shadow: var(--shadow);
     border-radius: var(--radius);
@@ -20,13 +20,87 @@
     display: flex;
     justify-content: center;
     padding: var(--odsazeni);
-    font-size: 1.4em;
+    font-size: var(--velikost-nadpisu-maly);
 }
+
 .seznam-check {
-      accent-color: var(--hlavni-barva);
+    appearance: none; /* odstraní klasický vzhled */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width:1.8em;
+    height: 1.8em;
+    border-radius: 4px;
+    position: relative;
+    margin-right: 0.5em;
+    border: var(--border);
+    transition: all 0.2s;
+    vertical-align: middle;
+    
+    }
+    
+    .seznam-check:checked {
+    background-color: var(--hlavni-barva);
+    border-color: var(--hlavni-barva);
+    }
+    .seznam-check:checked::after {
+    content: "✓"; /* znak fajfky */
+    color: var(--text-light);
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    } 
+
+
+/* vygenerovaný seznam - samotný text */
+.seznam-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* dva stejně široké sloupce */
+    gap: 0 5em;
+    padding: 0;
 }
+
 .seznam-item {
     list-style: none;
-    margin-bottom: 1em;
-   
+    margin-bottom: 0.4em;
+    font-size: var(--velikost-pisma);
+}
+
+/*tisk*/
+
+.tlacitko-tisk {
+    display: flex;
+    justify-content: center;
+    background-color: var(--hlavni-barva);
+    font-size: var(--velikost-pisma);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: var(--odsazeni);
+    cursor: pointer;
+    border-radius: var(--radius);
+    color: var(--text-light);
+    width: 90%;
+    margin: 1em;
+    transition: var(--transition);
+}
+
+@media print {
+
+    .form-obdobi,
+    .nadpis,
+    .tlacitko-tisk,
+    .navigace {
+        display: none;
+    }
+
+    .seznam-container,
+    .seznam {
+        display: block;
+    }
+}
+
+.tlacitko-tisk:hover {
+    transform: scale(1.05);
 }

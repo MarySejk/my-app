@@ -6,16 +6,17 @@
     box-shadow: var(--shadow);
     margin:0;
     width: 100%;
-    padding: 0.5em 0;
+    padding: 0.5em;
   }
   
   .nav-seznam {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5em;
    }
 
-   @media (min-width: 750px) {
+   @media (min-width: 450px) {
     .nav-seznam {
       justify-content: center;
       gap: 2em;
@@ -23,7 +24,7 @@
    }
    @media (min-width: 950px) {
     .nav-seznam {
-      gap: 5em;
+      gap: 3.5em;
     }
    }
   
@@ -31,7 +32,15 @@
   .nav-seznam-item {
     list-style: none;
     padding: 0.5em;
+    font-size: var(--velikost-navigace-maly);
   }
+
+  @media (min-width: 550px) {
+    .nav-seznam-item {
+      font-size: var(--velikost-navigace-velky);
+    }
+  }
+ 
   
   li:hover {
     text-decoration: underline;

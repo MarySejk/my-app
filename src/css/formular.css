@@ -7,7 +7,7 @@
   background-color: var(--hlavni-barva);
   font-weight: bolder;
   padding: 1em 1.5em;
-  margin-top: 1em;
+  margin: 1.2em 0;
   color: var(--text);
   font-size: var(--velikost-pisma);
   box-shadow: var(--shadow);
@@ -32,7 +32,7 @@
 .textarea {
   border-radius: var(--radius);
   padding: var(--odsazeni);
- /*  border: var(--border); */
+  border: var(--border);
   margin-bottom: 1.5em;
   font-size: 1em;
   color: var(--text);

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Select from "react-select";
+import { FiPrinter } from "react-icons/fi";
+
 import { JEDNODENNI_VODA } from '../data/jednodenni_voda';
 import { JEDNODENNI_MESTO } from '../data/jednodenni_mesto';
 import { JEDNODENNI_PRIRODA } from '../data/jednodenni_priroda';
@@ -10,7 +12,7 @@ const mujStyl = {
         ...base,
         borderRadius: "var(--radius)",
         padding: "var(--odsazeni)",
-        fontSize: "1em",
+        fontSize: "var(--font-size)",
         border: "var(--border)",
         boxShadow: state.isFocused ? "var(--shadow)" : "none",
         marginBottom: "1.5em",
@@ -20,7 +22,7 @@ const mujStyl = {
         ...base,
         borderRadius: "var(--radius)",
         padding: "var(--odsazeni)",
-        fontSize: "1em",
+        fontSize: "var(--font-size)",
         border: "var(--border)",
         backgroundColor: "var(--barva-pozadi)",
 
@@ -79,9 +81,9 @@ function Formular() {
             default:
                 vybranySeznam = [];
         }
-        if (novaPolozka.trim() !== ""){
+        if (novaPolozka.trim() !== "") {
             vybranySeznam.push(novaPolozka.trim())
-        } 
+        }
         setSeznam(vybranySeznam);
         setNovaPolozka("");
     }
@@ -122,10 +124,10 @@ function Formular() {
 
                 <label className='label'>Chceš přidat něco navíc?</label>
                 <textarea
-                 placeholder='Název položky...'
-                 className='textarea'
-                 value={novaPolozka}
-                 onChange={(e) => setNovaPolozka(e.target.value)} />
+                    placeholder='Název položky...'
+                    className='textarea'
+                    value={novaPolozka}
+                    onChange={(e) => setNovaPolozka(e.target.value)} />
 
                 <div className="tlacitko" onClick={handleClick}>
                     Vytvoř seznam
@@ -139,17 +141,22 @@ function Formular() {
                         <h3 className='seznam-nadpis'>
                             Seznam pro výlet {typVyletu} v období {obdobi}
                         </h3>
-                        <ul >
+                     
+                        <ul className='seznam-list'>
                             {seznam.map((item, index) => (
                                 <li key={index} className='seznam-item'>
-                                    <label >
+                                    <label>
                                         <input type='checkbox' className='seznam-check' />
-                                        {""}
+                                        
                                         {item}
                                     </label>
                                 </li>
                             ))}
                         </ul>
+                        <button className='tlacitko-tisk' onClick={() => window.print()}>
+                        <FiPrinter style={{ marginRight: '0.5em' }} />
+                            Vytisknout
+                        </button>
                     </div>
                 </div>
             )}

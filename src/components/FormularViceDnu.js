@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Select from "react-select";
+import { FiPrinter } from "react-icons/fi";
+
 import { VICEDENNI_HOTEL } from '../data/vicedenni_hotel';
 import { VICEDENNI_STAN } from '../data/vicedenni_stan';
+import { VICEDENNI_SPACAK } from '../data/vicedenni_spacak';
 
 const mujStyl = {
     control: (base, state) => ({
@@ -43,6 +46,7 @@ const options_obdobi = [
 
 const options_typ = [
     { value: "hotel", label: "Hotel nebo penzion" },
+    { value: "bez spacáku", label: "Penzion/chata s vlastním spacákem" },
     { value: "stan", label: "Pod stanem" },
 ]
 
@@ -57,11 +61,14 @@ function FormularViceDnu() {
             alert("Vyber si typ ubytování a roční období.");
             return;
         }
-        
+
         let vybranySeznam = [];
         switch (typUbytovani) {
             case "hotel":
                 vybranySeznam = VICEDENNI_HOTEL;
+                break;
+            case "bez spacáku":
+                vybranySeznam = VICEDENNI_SPACAK;
                 break;
             case "stan":
                 vybranySeznam = VICEDENNI_STAN;
@@ -69,9 +76,9 @@ function FormularViceDnu() {
             default:
                 vybranySeznam = [];
         }
-        if (novaPolozka.trim() !== ""){
+        if (novaPolozka.trim() !== "") {
             vybranySeznam.push(novaPolozka.trim())
-        } 
+        }
         setSeznam(vybranySeznam);
         setNovaPolozka("");
     }
@@ -86,7 +93,7 @@ function FormularViceDnu() {
         if (selected) {
             setTypUbytovani(selected.value)
             setSeznam([]);
-        } 
+        }
     }
 
     return (
@@ -112,10 +119,10 @@ function FormularViceDnu() {
 
                 <label className='label'>Chceš přidat něco navíc?</label>
                 <textarea
-                 placeholder='Název položky...'
-                 className='textarea'
-                 value={novaPolozka}
-                 onChange={(e) => setNovaPolozka(e.target.value)} />
+                    placeholder='Název položky...'
+                    className='textarea'
+                    value={novaPolozka}
+                    onChange={(e) => setNovaPolozka(e.target.value)} />
 
                 <div className="tlacitko" onClick={handleClick}>
                     Vytvoř seznam
@@ -129,7 +136,7 @@ function FormularViceDnu() {
                         <h3 className='seznam-nadpis'>
                             Seznam pro ubytování typu {typUbytovani} v období {obdobi}
                         </h3>
-                        <ul >
+                        <ul className='seznam-list' >
                             {seznam.map((item, index) => (
                                 <li key={index} className='seznam-item'>
                                     <label >
@@ -140,6 +147,10 @@ function FormularViceDnu() {
                                 </li>
                             ))}
                         </ul>
+                        <button className='tlacitko-tisk' onClick={() => window.print()}>
+                            <FiPrinter style={{ marginRight: '0.5em' }} />
+                            Vytisknout
+                        </button>
                     </div>
                 </div>
             )}

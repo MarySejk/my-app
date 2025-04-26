@@ -14,23 +14,40 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     margin: 2em;
-    padding: var(--odsazeni);
+    /* padding: var(--odsazeni); */
     background-color: var(--barva-pozadi);
     line-height: var(--line-height);
+  }
+  @media (min-width:760px){
+    .textovy-blok {
+      width: 65%;
+    }
   }
   
   .nadpis {
     display: flex;
     justify-content: center;
-    font-size: 2.5em;
+    font-size: var(--velikost-nadpisu-maly);
     color: var(--text);
+    margin: 0.5em;
+    padding: 0;
+  }
+  @media (min-width: 560px){ 
+    .nadpis {
+      font-size: var(--velikost-nadpisu-velky);
+    }
   }
   
   .uvod {
     font-size: var(--velikost-pisma);
-    padding: var(--odsazeni) 5em;
+    padding: var(--odsazeni);
     display: flex;
     flex-direction: column;
+  }
+  @media (min-width: 760px) {
+    .uvod {
+      padding: var(--odsazeni) 5em;
+    }
   }
   .uvod a {
     text-decoration: none;

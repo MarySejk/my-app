@@ -13,7 +13,7 @@ function Home() {
                     <span style={{ display: 'block' }}> { /* začátek na novém řádku */ }
                         Můžeš si vybrat, zda chceš vytvořit seznam k zabalení na
                         <Link to="/jednodenni"> jeden den </Link> nebo na
-                        <Link to="/vicedenni"> více dnů </Link>. </span>
+                        <Link to="/vicedenni"> více dnů. </Link> </span>
                     <span style={{ display: 'block' }}> { /* začátek na novém řádku */ }
                         Aplikace bere v potaz i roční období a typ pobytu.
                     </span>
