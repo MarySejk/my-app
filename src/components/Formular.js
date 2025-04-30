@@ -122,7 +122,7 @@ function Formular() {
                     styles={mujStyl}
                 />
 
-                <label className='label'>Chceš přidat něco navíc?</label>
+                <label className='label label-navic'>Chceš přidat něco navíc?</label>
                 <textarea
                     placeholder='Název položky...'
                     className='textarea'
