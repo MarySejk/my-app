@@ -1,4 +1,8 @@
 @import './variables.css';
+html {
+  height: 100%;
+  margin:0;
+}
 body {
     margin: 0;
     padding:0;
@@ -15,4 +19,9 @@ body {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+  * {
+    box-sizing: border-box;
+  }
+  
   
