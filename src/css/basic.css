@@ -8,6 +8,7 @@ body {
     box-sizing: border-box;
     background-color: var(--barva-pozadi);
     color: var(--text);
+    height: 100%;
     }
   
   code {

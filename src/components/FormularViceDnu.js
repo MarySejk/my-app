@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Select from "react-select";
 import { FiPrinter } from "react-icons/fi";
+import "../utils/pocetNoci";
 
 import { VICEDENNI_HOTEL } from '../data/vicedenni_hotel';
 import { VICEDENNI_STAN } from '../data/vicedenni_stan';
 import { VICEDENNI_SPACAK } from '../data/vicedenni_spacak';
 
+/*stylování vlastního selectu*/
 const mujStyl = {
     control: (base, state) => ({
         ...base,
@@ -36,7 +38,23 @@ const mujStyl = {
     }),
 
 };
-
+// Pomocná funkce pro výpočet seznamu
+function generujSeznam(seznam, pocetNoci) {
+    const pocet = isNaN(pocetNoci) ? 1 : Number(pocetNoci);
+    return seznam.flatMap(item => {
+        if (item.zavisleNaNoci) {
+            const mnozstviCelkem = item.mnozstvi * pocet;
+            return mnozstviCelkem > 1
+                ? `${item.nazev} (${mnozstviCelkem})`
+                : item.nazev;
+        } else {
+            return item.mnozstvi > 1
+                ? `${item.nazev} (${item.mnozstvi})`
+                : item.nazev;
+        }
+    });
+}
+/*možnosti výběru hodnot ve formuláří*/
 const options_obdobi = [
     { value: "jaro", label: "Jaro" },
     { value: "léto", label: "Léto" },
@@ -50,41 +68,61 @@ const options_typ = [
     { value: "stan", label: "Pod stanem" },
 ]
 
+const options_noci = [
+    { value: 1, label: "1 noc" },
+    { value: 2, label: "2 noci" },
+    { value: 3, label: "3 noci" },
+    { value: 4, label: "4 noci" },
+    { value: 5, label: "5 nocí" },
+    { value: 6, label: "6 nocí" },
+    { value: 7, label: "7 nocí" },
+    { value: 8, label: "8 nocí" },
+    { value: 9, label: "9 nocí" },
+    { value: 10, label: "10 nocí" },
+    { value: "vice", label: "víc nocí" },
+]
+
+/*hlavní funkce*/
+
 function FormularViceDnu() {
     const [seznam, setSeznam] = useState([]);
     const [typUbytovani, setTypUbytovani] = useState("");
     const [obdobi, setObdobi] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
+    const [noci, setNoci] = useState("")
 
     const handleClick = () => {
-        if (!typUbytovani || !obdobi) {
-            alert("Vyber si typ ubytování a roční období.");
+        if (!typUbytovani || !noci) {
+            alert("Vyber si typ ubytování a počet nocí.");
             return;
         }
 
-        let vybranySeznam = [];
+        let zaklad = [];
         switch (typUbytovani) {
             case "hotel":
-                vybranySeznam = VICEDENNI_HOTEL;
+                zaklad = VICEDENNI_HOTEL;
                 break;
             case "bez spacáku":
-                vybranySeznam = VICEDENNI_SPACAK;
+                zaklad = VICEDENNI_SPACAK;
                 break;
             case "stan":
-                vybranySeznam = VICEDENNI_STAN;
+                zaklad = VICEDENNI_STAN;
                 break;
             default:
-                vybranySeznam = [];
+                zaklad = [];
         }
-        if (novaPolozka.trim() !== "") {
-            vybranySeznam.push(novaPolozka.trim())
+
+        const finalniSeznam = generujSeznam(zaklad, noci);
+        if (novaPolozka.trim()) {
+            finalniSeznam.push(novaPolozka.trim());
         }
-        setSeznam(vybranySeznam);
+
+        setSeznam(finalniSeznam);
         setNovaPolozka("");
     }
-    const handleSelectObdobi = (selected) => {
+    const handleSelectNoci = (selected) => {
         if (selected) {
-            setObdobi(selected.value);
+            setNoci(selected.value);
             setSeznam([]);
         }
     }
@@ -99,11 +137,11 @@ function FormularViceDnu() {
     return (
         <div>
             <form className="form-obdobi uvod">
-                <label className="label">Vyber si roční období</label>
+                <label className="label">Na kolik nocí se balíš?</label>
                 <Select
-                    options={options_obdobi}
-                    value={options_obdobi.find((opt) => opt.value === obdobi)}
-                    onChange={handleSelectObdobi}
+                    options={options_noci}
+                    value={options_noci.find((opt) => opt.value === noci)}
+                    onChange={handleSelectNoci}
                     placeholder="Vyber..."
                     styles={mujStyl}
                 />
@@ -134,7 +172,7 @@ function FormularViceDnu() {
                 <div className='seznam-container'>
                     <div className='seznam'>
                         <h3 className='seznam-nadpis'>
-                            Seznam pro ubytování typu {typUbytovani} v období {obdobi}
+                            Seznam pro ubytování typu {typUbytovani} na počet nocí: {noci}
                         </h3>
                         <ul className='seznam-list' >
                             {seznam.map((item, index) => (

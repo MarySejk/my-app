@@ -12,8 +12,9 @@
     --odsazeni: 0.8em;
   --radius: 1em;
   --line-height: 1.6;
-  --velikost-pisma: 0.9em;
-  --velikost-nadpisu-maly: 1.2em;
+  --velikost-pisma: 1em;
+  --velikost-pisma-vetsi: 1.2em;
+  --velikost-nadpisu-maly: 1.4em;
   --velikost-nadpisu-velky: 2.5em;
   --velikost-navigace-maly:0.7em;
   --velikost-navigace-velky: 1em;

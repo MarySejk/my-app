@@ -2,61 +2,70 @@
 
 /*nadpisy a container*/
 .container-uvod {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
   
+}
+
+.textovy-blok {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  border: solid 1px rgb(85, 83, 83);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 2em;
+  padding: var(--odsazeni);
+  background-color: var(--barva-pozadi);
+  
+}
+
+@media (min-width:760px) {
   .textovy-blok {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    border: solid 1px rgb(85, 83, 83);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin: 2em;
-    /* padding: var(--odsazeni); */
-    background-color: var(--barva-pozadi);
-    line-height: var(--line-height);
+    width: 65%;
+    font-size: var(--velikost-pisma-vetsi);
   }
-  @media (min-width:760px){
-    .textovy-blok {
-      width: 65%;
-    }
-  }
-  
-  .nadpis {
-    display: flex;
-    justify-content: center;
-    font-size: var(--velikost-nadpisu-maly);
-    color: var(--text);
-    margin: 0.5em;
-    padding: 0;
-  }
-  @media (min-width: 560px){ 
-    .nadpis {
-      font-size: var(--velikost-nadpisu-velky);
-    }
-  }
-  
+}
+
+.nadpis {
+  display: flex;
+  justify-content: center;
+  font-size: var(--velikost-nadpisu-maly);
+  color: var(--text);
+  margin: 0.5em;
+  padding: 0;
+}
+
+.uvod {
+  font-size: var(--velikost-pisma);
+  padding:0;
+  margin:0;
+  display: flex;
+  flex-direction: column;
+  line-height: var(--line-height);
+}
+
+@media (min-width: 760px) {
   .uvod {
-    font-size: var(--velikost-pisma);
-    padding: var(--odsazeni);
-    display: flex;
-    flex-direction: column;
+    padding: var(--odsazeni) 5em;
   }
-  @media (min-width: 760px) {
-    .uvod {
-      padding: var(--odsazeni) 5em;
-    }
+}
+
+@media (min-width:825px) {
+  .nadpis {
+    font-size: var(--velikost-nadpisu-velky)
   }
-  .uvod a {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: bold;
-  }
-  .uvod a:hover{
-    text-decoration: underline;
-    text-decoration-color: var(--sekundarni-barva);
-    text-decoration-thickness: 0.2em;
-    text-underline-offset: 0.2em;
-  }
+}
+
+.uvod a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: bold;
+}
+
+.uvod a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--sekundarni-barva);
+  text-decoration-thickness: 0.2em;
+  text-underline-offset: 0.2em;
+}

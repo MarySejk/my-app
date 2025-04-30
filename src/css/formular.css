@@ -9,7 +9,7 @@
   padding: 1em 1.5em;
   margin: 1.2em 0;
   color: var(--text);
-  font-size: var(--velikost-pisma);
+  font-size: var(--velikost-pisma-vetsi);
   box-shadow: var(--shadow);
   border: var(--border);
   display: flex;
