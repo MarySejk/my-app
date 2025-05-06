@@ -81,10 +81,12 @@ function Formular() {
             default:
                 vybranySeznam = [];
         }
-        if (novaPolozka.trim() !== "") {
-            vybranySeznam.push(novaPolozka.trim())
-        }
-        setSeznam(vybranySeznam);
+ 
+        const radky = novaPolozka 
+            .split("\n")
+            .map((r) => r.trim())
+            .filter((r) => r !== '');
+        setSeznam([...vybranySeznam, ...radky]);
         setNovaPolozka("");
     }
     const handleSelectObdobi = (selected) => {

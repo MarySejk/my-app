@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 function Jednodenni() {
 
     return (
-        <div className="stranka" >
+        <div >
             <div className="container-uvod">
                 <div className="textovy-blok">
                     <h2 className="nadpis">

@@ -87,7 +87,6 @@ const options_noci = [
 function FormularViceDnu() {
     const [seznam, setSeznam] = useState([]);
     const [typUbytovani, setTypUbytovani] = useState("");
-    const [obdobi, setObdobi] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
     const [noci, setNoci] = useState("")
 
@@ -113,87 +112,88 @@ function FormularViceDnu() {
         }
 
         const finalniSeznam = generujSeznam(zaklad, noci);
-        if (novaPolozka.trim()) {
-            finalniSeznam.push(novaPolozka.trim());
-        }
-
-        setSeznam(finalniSeznam);
+        const radky = novaPolozka
+            .split("\n")
+            .map((r) => r.trim())
+            .filter((r) => r !== '');
+        setSeznam([...finalniSeznam, ...radky]);
         setNovaPolozka("");
     }
-    const handleSelectNoci = (selected) => {
-        if (selected) {
-            setNoci(selected.value);
-            setSeznam([]);
-        }
+
+const handleSelectNoci = (selected) => {
+    if (selected) {
+        setNoci(selected.value);
+        setSeznam([]);
     }
+}
 
-    const handleSelectTyp = (selected) => {
-        if (selected) {
-            setTypUbytovani(selected.value)
-            setSeznam([]);
-        }
+const handleSelectTyp = (selected) => {
+    if (selected) {
+        setTypUbytovani(selected.value)
+        setSeznam([]);
     }
+}
 
-    return (
-        <div>
-            <form className="form-obdobi uvod">
-                <label className="label">Na kolik nocí se balíš?</label>
-                <Select
-                    options={options_noci}
-                    value={options_noci.find((opt) => opt.value === noci)}
-                    onChange={handleSelectNoci}
-                    placeholder="Vyber..."
-                    styles={mujStyl}
-                />
+return (
+    <div>
+        <form className="form-obdobi uvod">
+            <label className="label">Na kolik nocí se balíš?</label>
+            <Select
+                options={options_noci}
+                value={options_noci.find((opt) => opt.value === noci)}
+                onChange={handleSelectNoci}
+                placeholder="Vyber..."
+                styles={mujStyl}
+            />
 
-                <label className="label">Vyber si typ ubytování</label>
-                <Select
-                    options={options_typ}
-                    value={options_typ.find((opt) => opt.value === typUbytovani)}
-                    onChange={handleSelectTyp}
-                    placeholder="Vyber..."
-                    styles={mujStyl}
-                />
+            <label className="label">Vyber si typ ubytování</label>
+            <Select
+                options={options_typ}
+                value={options_typ.find((opt) => opt.value === typUbytovani)}
+                onChange={handleSelectTyp}
+                placeholder="Vyber..."
+                styles={mujStyl}
+            />
 
-                <label className='label'>Chceš přidat něco navíc?</label>
-                <textarea
-                    placeholder='Název položky...'
-                    className='textarea'
-                    value={novaPolozka}
-                    onChange={(e) => setNovaPolozka(e.target.value)} />
+            <label className='label'>Chceš přidat něco navíc?</label>
+            <textarea
+                placeholder='Název položky...'
+                className='textarea'
+                value={novaPolozka}
+                onChange={(e) => setNovaPolozka(e.target.value)} />
 
-                <div className="tlacitko" onClick={handleClick}>
-                    Vytvoř seznam
+            <div className="tlacitko" onClick={handleClick}>
+                Vytvoř seznam
+            </div>
+
+        </form>
+        {/*seznam -generování*/}
+        {Array.isArray(seznam) && seznam.length > 0 && (
+            <div className='seznam-container'>
+                <div className='seznam'>
+                    <h3 className='seznam-nadpis'>
+                        Seznam pro ubytování typu {typUbytovani} na počet nocí: {noci}
+                    </h3>
+                    <ul className='seznam-list' >
+                        {seznam.map((item, index) => (
+                            <li key={index} className='seznam-item'>
+                                <label >
+                                    <input type='checkbox' className='seznam-check' />
+                                    {""}
+                                    {item}
+                                </label>
+                            </li>
+                        ))}
+                    </ul>
+                    <button className='tlacitko-tisk' onClick={() => window.print()}>
+                        <FiPrinter style={{ marginRight: '0.5em' }} />
+                        Vytisknout
+                    </button>
                 </div>
-
-            </form>
-            {/*seznam -generování*/}
-            {Array.isArray(seznam) && seznam.length > 0 && (
-                <div className='seznam-container'>
-                    <div className='seznam'>
-                        <h3 className='seznam-nadpis'>
-                            Seznam pro ubytování typu {typUbytovani} na počet nocí: {noci}
-                        </h3>
-                        <ul className='seznam-list' >
-                            {seznam.map((item, index) => (
-                                <li key={index} className='seznam-item'>
-                                    <label >
-                                        <input type='checkbox' className='seznam-check' />
-                                        {""}
-                                        {item}
-                                    </label>
-                                </li>
-                            ))}
-                        </ul>
-                        <button className='tlacitko-tisk' onClick={() => window.print()}>
-                            <FiPrinter style={{ marginRight: '0.5em' }} />
-                            Vytisknout
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
+            </div>
+        )}
+    </div>
+);
 }
 
 export default FormularViceDnu;

@@ -1,14 +1,14 @@
 @import './variables.css';
 
 .stranka {
-    min-height: 100%;
-    margin:0;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;}
   
-main {
+.container-uvod {
     flex:1;
 }
+
 .zapati {
     display: flex;
     width: 100%;

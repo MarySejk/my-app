@@ -35,7 +35,6 @@
     border: var(--border);
     transition: all 0.2s;
     vertical-align: middle;
-    
     }
     
     .seznam-check:checked {
@@ -91,14 +90,24 @@
     .form-obdobi,
     .nadpis,
     .tlacitko-tisk,
-    .navigace {
+    .navigace,
+   .zapati {
         display: none;
     }
 
     .seznam-container,
     .seznam {
         display: block;
+        border: none;
+        box-shadow: none;
+        width: 100%;
+        margin: 0;
     }
+    .seznam-check {
+        width: 1em;
+        height: 1em;
+    }
+  
 }
 
 .tlacitko-tisk:hover {

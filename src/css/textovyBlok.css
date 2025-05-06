@@ -10,21 +10,15 @@
 .textovy-blok {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
+  max-width: 800px;
   border: solid 1px rgb(85, 83, 83);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin: 2em;
   padding: var(--odsazeni);
   background-color: var(--barva-pozadi);
-  
-}
-
-@media (min-width:760px) {
-  .textovy-blok {
-    width: 65%;
-    font-size: var(--velikost-pisma-vetsi);
-  }
+  font-size: var(--velikost-pisma-vetsi);
 }
 
 .nadpis {
@@ -47,11 +41,11 @@
 
 @media (min-width: 760px) {
   .uvod {
-    padding: var(--odsazeni) 5em;
+    padding: var(--odsazeni) 2em;
   }
 }
 
-@media (min-width:825px) {
+@media (min-width:870px) {
   .nadpis {
     font-size: var(--velikost-nadpisu-velky)
   }

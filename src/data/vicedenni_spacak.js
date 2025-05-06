@@ -1,6 +1,6 @@
 export const VICEDENNI_SPACAK = [
     
-    { nazev: "Karimatka (pokud je potřeba", mnozstvi: 1, zavisleNaNoci: false},
+    { nazev: "Karimatka (pokud je potřeba)", mnozstvi: 1, zavisleNaNoci: false},
     { nazev: "Polštářek", mnozstvi: 1, zavisleNaNoci: false},
     { nazev: "Spacák", mnozstvi: 1, zavisleNaNoci: false},
     { nazev: "Pyžamo", mnozstvi: 1, zavisleNaNoci: false },
