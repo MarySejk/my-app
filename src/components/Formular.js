@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from "react-select";
 import { FiPrinter } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 
 import { JEDNODENNI_VODA } from '../data/jednodenni_voda';
 import { JEDNODENNI_MESTO } from '../data/jednodenni_mesto';
@@ -58,6 +59,17 @@ function Formular() {
     const [obdobi, setObdobi] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
 
+    useEffect(() => {
+        const ulozeny = localStorage.getItem("seznamNaVylet");
+        if (ulozeny) {
+            setSeznam(JSON.parse(ulozeny));
+        }
+    }, []);
+
+    useEffect (() => {
+        localStorage.setItem("seznamNaVylet", JSON.stringify(seznam))
+    }, [seznam]);
+
     const handleClick = () => {
         if (!typVyletu || !obdobi) {
             alert("Vyber si typ výletu a roční období.");
@@ -101,6 +113,11 @@ function Formular() {
             setTypVyletu(selected.value)
             setSeznam([]);
         }
+    }
+
+    const smazatSeznam = () => {
+        localStorage.removeItem("seznamNaVylet");
+        setSeznam([]);
     }
 
     return (
@@ -158,6 +175,9 @@ function Formular() {
                         <button className='tlacitko-tisk' onClick={() => window.print()}>
                         <FiPrinter style={{ marginRight: '0.5em' }} />
                             Vytisknout
+                        </button>
+                        <button className='tlacitko-tisk' onClick={smazatSeznam}>
+                           <FiTrash2 style={{marginRight: '0.5em'}} /> Smazat seznam
                         </button>
                     </div>
                 </div>

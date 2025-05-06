@@ -19,6 +19,9 @@ function Home() {
                         <span style={{ display: 'block' }}> { /* začátek na novém řádku */}
                             Aplikace bere v potaz i roční období a typ pobytu.
                         </span>
+                        <span style={{ display: 'block' }}> { /* začátek na novém řádku */}
+                            Svůj seznam si můžeš uložit a později se k němu vrátit <Link to="/ulozene">zde.</Link>
+                        </span>
                     </p>
                 </div>
             </div>

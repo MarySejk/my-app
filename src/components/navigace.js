@@ -1,8 +1,8 @@
 import React from "react"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-function Navigace(){
-    return(
+function Navigace() {
+    return (
         <nav className="navigace">
             <ul className="nav-seznam">
                 <li className="nav-seznam-item">
@@ -13,6 +13,9 @@ function Navigace(){
                 </li>
                 <li className="nav-seznam-item">
                     <Link to="/vicedenni">Výlet na více dnů</Link>
+                </li>
+                <li className="nav-seznam-item">
+                    <Link to="/ulozene">Uložené seznamy</Link>
                 </li>
             </ul>
         </nav>
