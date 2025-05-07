@@ -6,7 +6,8 @@
     margin: 2em;
 }
 
-.seznam {
+.seznam,
+.ulozeny-seznam {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,12 +65,28 @@
 .seznam-item {
     list-style: none;
     margin-bottom: 0.4em;
-    font-size: var(--velikost-pisma);
+    font-size: var(--velikost-pisma);}
+
+.seznam-item:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--sekundarni-barva);
+        text-decoration-thickness: 0.3em;
+        text-underline-offset: 0.5em;
+      }
+
+
+.ulozeny-seznam  {
+   margin: 1em;
+   
+}
+.ulozeny-seznam li {
+    margin-bottom: 0.4em;
 }
 
 /*tisk*/
 
-.tlacitko-tisk {
+.tlacitko-tisk,
+.tlacitko-smazat {
     display: flex;
     justify-content: center;
     background-color: var(--hlavni-barva);
@@ -110,6 +127,7 @@
   
 }
 
-.tlacitko-tisk:hover {
+.tlacitko-tisk:hover,
+.tlacitko-smazat:hover {
     transform: scale(1.05);
 }

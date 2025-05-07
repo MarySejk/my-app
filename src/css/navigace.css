@@ -2,56 +2,55 @@
 
 /*Navigace */
 .navigace {
-    background-color: var(--hlavni-barva);
-    box-shadow: var(--shadow);
-    margin:0;
-    width: 100%;
-    padding: 0.5em;
-  }
-  
+  background-color: var(--hlavni-barva);
+  box-shadow: var(--shadow);
+  margin: 0;
+  width: 100%;
+  padding: 0.5em;
+}
+
+.nav-seznam {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}
+
+@media (min-width: 450px) {
   .nav-seznam {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5em;
-   }
+    justify-content: center;
+    gap: 2em;
+  }
+}
 
-   @media (min-width: 450px) {
-    .nav-seznam {
-      justify-content: center;
-      gap: 2em;
-    }
-   }
-   @media (min-width: 950px) {
-    .nav-seznam {
-      gap: 3.5em;
-    }
-   }
-  
-  
+@media (min-width: 950px) {
+  .nav-seznam {
+    gap: 3.5em;
+  }
+}
+
+.nav-seznam-item {
+  list-style: none;
+  padding: 0.5em;
+  font-size: var(--velikost-navigace-maly);
+}
+
+@media (min-width: 550px) {
   .nav-seznam-item {
-    list-style: none;
-    padding: 0.5em;
-    font-size: var(--velikost-navigace-maly);
+    font-size: var(--velikost-navigace-velky);
   }
+}
 
-  @media (min-width: 550px) {
-    .nav-seznam-item {
-      font-size: var(--velikost-navigace-velky);
-    }
-  }
- 
-  
-  li:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--sekundarni-barva);
-    text-decoration-thickness: 0.3em;
-    text-underline-offset: 0.5em;
-  }
-  
-  .nav-seznam-item a {
-    text-decoration: none;
-    color: var(--text);
-    font-size: 1.3em;
-    font-weight: bold;
-  }
+.nav-seznam li:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--sekundarni-barva);
+  text-decoration-thickness: 0.3em;
+  text-underline-offset: 0.5em;
+}
+
+.nav-seznam-item a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1.3em;
+  font-weight: bold;
+}

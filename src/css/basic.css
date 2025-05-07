@@ -20,6 +20,8 @@ body {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
-
+h2 {
+  font-size: var(--velikost-nadpisu-velky);
+}
   
   

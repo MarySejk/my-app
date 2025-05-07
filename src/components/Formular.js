@@ -36,7 +36,6 @@ const mujStyl = {
                 ? "var(--hlavni-barva)"
                 : "var(--barva-pozadi)",
     }),
-
 };
 
 const options_obdobi = [
@@ -55,20 +54,22 @@ const options_typ = [
 
 function Formular() {
     const [seznam, setSeznam] = useState([]);
+    const [seznamy, setSeznamy] = useState({});
     const [typVyletu, setTypVyletu] = useState("");
     const [obdobi, setObdobi] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
 
     useEffect(() => {
-        const ulozeny = localStorage.getItem("seznamNaVylet");
+        const ulozeny = localStorage.getItem("vyletySeznamy");
         if (ulozeny) {
-            setSeznam(JSON.parse(ulozeny));
+            const parsed = JSON.parse(ulozeny);
+            setSeznamy(parsed);
+            if (typVyletu && obdobi) {
+                const klic = `${typVyletu}_${obdobi}`;
+                setSeznam(parsed[klic] || []);
+            }
         }
-    }, []);
-
-    useEffect (() => {
-        localStorage.setItem("seznamNaVylet", JSON.stringify(seznam))
-    }, [seznam]);
+    }, [typVyletu, obdobi]);
 
     const handleClick = () => {
         if (!typVyletu || !obdobi) {
@@ -93,25 +94,42 @@ function Formular() {
             default:
                 vybranySeznam = [];
         }
- 
-        const radky = novaPolozka 
+
+        const radky = novaPolozka
             .split("\n")
             .map((r) => r.trim())
             .filter((r) => r !== '');
-        setSeznam([...vybranySeznam, ...radky]);
+
+        const novySeznam = [...vybranySeznam, ...radky];
+        const klic = `${typVyletu}_${obdobi}`;
+
+        const noveSeznamy = {
+            ...seznamy,
+            [klic]: novySeznam,
+        }
+        setSeznamy(noveSeznamy);
+        setSeznam(novySeznam);
         setNovaPolozka("");
+
+        localStorage.setItem('vyletySeznamy', JSON.stringify(noveSeznamy));
     }
+
     const handleSelectObdobi = (selected) => {
         if (selected) {
-            setObdobi(selected.value);
-            setSeznam([]);
+            const noveObdobi = selected.value;
+            setObdobi(noveObdobi);
+            const klic = `${typVyletu}_${noveObdobi}`;
+            setSeznam(seznamy[klic] || []);
         }
     }
 
     const handleSelectTyp = (selected) => {
         if (selected) {
-            setTypVyletu(selected.value)
-            setSeznam([]);
+            const novyTyp = selected.value;
+            setTypVyletu(novyTyp);
+            const klic = `${novyTyp}_${obdobi}`;
+
+            setSeznam(seznamy[klic] || []);
         }
     }
 
@@ -160,24 +178,35 @@ function Formular() {
                         <h3 className='seznam-nadpis'>
                             Seznam pro výlet {typVyletu} v období {obdobi}
                         </h3>
-                     
+
                         <ul className='seznam-list'>
                             {seznam.map((item, index) => (
                                 <li key={index} className='seznam-item'>
                                     <label>
                                         <input type='checkbox' className='seznam-check' />
-                                        
+
                                         {item}
                                     </label>
                                 </li>
                             ))}
                         </ul>
-                        <button className='tlacitko-tisk' onClick={() => window.print()}>
-                        <FiPrinter style={{ marginRight: '0.5em' }} />
+                        <button
+                            className='tlacitko-tisk'
+                            onClick={() => window.print()}>
+                            <FiPrinter style={{ marginRight: '0.5em' }} />
                             Vytisknout
                         </button>
-                        <button className='tlacitko-tisk' onClick={smazatSeznam}>
-                           <FiTrash2 style={{marginRight: '0.5em'}} /> Smazat seznam
+                        <button
+                            className='tlacitko-tisk'
+                            onClick={handleClick}>
+                            <FiPrinter style={{ marginRight: '0.5em' }} />
+                            Ulož
+                        </button>
+                        <button
+                            className='tlacitko-smazat'
+                            onClick={smazatSeznam}>
+                            <FiTrash2 style={{ marginRight: '0.5em' }} /> 
+                            Smazat seznam
                         </button>
                     </div>
                 </div>

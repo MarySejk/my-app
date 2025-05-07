@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Select from "react-select";
 import { FiPrinter } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 import "../utils/pocetNoci";
 
 import { VICEDENNI_HOTEL } from '../data/vicedenni_hotel';
@@ -55,13 +56,6 @@ function generujSeznam(seznam, pocetNoci) {
     });
 }
 /*možnosti výběru hodnot ve formuláří*/
-const options_obdobi = [
-    { value: "jaro", label: "Jaro" },
-    { value: "léto", label: "Léto" },
-    { value: "podzim", label: "Podzim" },
-    { value: "zima", label: "Zima" },
-]
-
 const options_typ = [
     { value: "hotel", label: "Hotel nebo penzion" },
     { value: "bez spacáku", label: "Penzion/chata s vlastním spacákem" },
@@ -111,6 +105,7 @@ function FormularViceDnu() {
                 zaklad = [];
         }
 
+/*přidání nové položky */
         const finalniSeznam = generujSeznam(zaklad, noci);
         const radky = novaPolozka
             .split("\n")
@@ -120,80 +115,93 @@ function FormularViceDnu() {
         setNovaPolozka("");
     }
 
-const handleSelectNoci = (selected) => {
-    if (selected) {
-        setNoci(selected.value);
+/* různé drobné funkce*/
+
+    const handleSelectNoci = (selected) => {
+        if (selected) {
+            setNoci(selected.value);
+            setSeznam([]);
+        }
+    }
+
+    const handleSelectTyp = (selected) => {
+        if (selected) {
+            setTypUbytovani(selected.value)
+            setSeznam([]);
+        }
+    }
+
+    const smazatSeznam = () => {
+        localStorage.removeItem("seznamNaVylet");
         setSeznam([]);
     }
-}
+   
+    return (
+        <div>
+            <form className="form-obdobi uvod">
+                <label className="label">Na kolik nocí se balíš?</label>
+                <Select
+                    options={options_noci}
+                    value={options_noci.find((opt) => opt.value === noci)}
+                    onChange={handleSelectNoci}
+                    placeholder="Vyber..."
+                    styles={mujStyl}
+                />
 
-const handleSelectTyp = (selected) => {
-    if (selected) {
-        setTypUbytovani(selected.value)
-        setSeznam([]);
-    }
-}
+                <label className="label">Vyber si typ ubytování</label>
+                <Select
+                    options={options_typ}
+                    value={options_typ.find((opt) => opt.value === typUbytovani)}
+                    onChange={handleSelectTyp}
+                    placeholder="Vyber..."
+                    styles={mujStyl}
+                />
 
-return (
-    <div>
-        <form className="form-obdobi uvod">
-            <label className="label">Na kolik nocí se balíš?</label>
-            <Select
-                options={options_noci}
-                value={options_noci.find((opt) => opt.value === noci)}
-                onChange={handleSelectNoci}
-                placeholder="Vyber..."
-                styles={mujStyl}
-            />
+                <label className='label'>Chceš přidat něco navíc?</label>
+                <textarea
+                    placeholder='Název položky...'
+                    className='textarea'
+                    value={novaPolozka}
+                    onChange={(e) => setNovaPolozka(e.target.value)} />
 
-            <label className="label">Vyber si typ ubytování</label>
-            <Select
-                options={options_typ}
-                value={options_typ.find((opt) => opt.value === typUbytovani)}
-                onChange={handleSelectTyp}
-                placeholder="Vyber..."
-                styles={mujStyl}
-            />
-
-            <label className='label'>Chceš přidat něco navíc?</label>
-            <textarea
-                placeholder='Název položky...'
-                className='textarea'
-                value={novaPolozka}
-                onChange={(e) => setNovaPolozka(e.target.value)} />
-
-            <div className="tlacitko" onClick={handleClick}>
-                Vytvoř seznam
-            </div>
-
-        </form>
-        {/*seznam -generování*/}
-        {Array.isArray(seznam) && seznam.length > 0 && (
-            <div className='seznam-container'>
-                <div className='seznam'>
-                    <h3 className='seznam-nadpis'>
-                        Seznam pro ubytování typu {typUbytovani} na počet nocí: {noci}
-                    </h3>
-                    <ul className='seznam-list' >
-                        {seznam.map((item, index) => (
-                            <li key={index} className='seznam-item'>
-                                <label >
-                                    <input type='checkbox' className='seznam-check' />
-                                    {""}
-                                    {item}
-                                </label>
-                            </li>
-                        ))}
-                    </ul>
-                    <button className='tlacitko-tisk' onClick={() => window.print()}>
-                        <FiPrinter style={{ marginRight: '0.5em' }} />
-                        Vytisknout
-                    </button>
+                <div className="tlacitko" onClick={handleClick}>
+                    Vytvoř seznam
                 </div>
-            </div>
-        )}
-    </div>
-);
+
+            </form>
+            {/*seznam -generování*/}
+            {Array.isArray(seznam) && seznam.length > 0 && (
+                <div className='seznam-container'>
+                    <div className='seznam'>
+                        <h3 className='seznam-nadpis'>
+                            Seznam pro ubytování typu {typUbytovani} na počet nocí: {noci}
+                        </h3>
+                        <ul className='seznam-list' >
+                            {seznam.map((item, index) => (
+                                <li key={index} className='seznam-item'>
+                                    <label >
+                                        <input type='checkbox' className='seznam-check' />
+                                        {""}
+                                        {item}
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
+                       {/*  <button className='tlacitko-uloz' onClick={ulozSeznam}>
+                            <FiTrash2 style={{ marginRight: '0.5em' }} /> Uložit seznam
+                        </button> */}
+                        <button className='tlacitko-tisk' onClick={() => window.print()}>
+                            <FiPrinter style={{ marginRight: '0.5em' }} />
+                            Vytisknout
+                        </button>
+                        <button className='tlacitko-smazat' onClick={smazatSeznam}>
+                            <FiTrash2 style={{ marginRight: '0.5em' }} /> Smazat seznam
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default FormularViceDnu;
