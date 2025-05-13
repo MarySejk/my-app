@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from "react-select";
-import { FiPrinter } from "react-icons/fi";
-import { FiTrash2 } from "react-icons/fi";
+import { FiPrinter, FiDownload, FiTrash2 } from "react-icons/fi";
 import "../utils/pocetNoci";
+import { useNavigate } from 'react-router-dom';
 
 import { VICEDENNI_HOTEL } from '../data/vicedenni_hotel';
 import { VICEDENNI_STAN } from '../data/vicedenni_stan';
@@ -63,16 +63,10 @@ const options_typ = [
 ]
 
 const options_noci = [
-    { value: 1, label: "1 noc" },
-    { value: 2, label: "2 noci" },
-    { value: 3, label: "3 noci" },
-    { value: 4, label: "4 noci" },
-    { value: 5, label: "5 nocí" },
-    { value: 6, label: "6 nocí" },
-    { value: 7, label: "7 nocí" },
-    { value: 8, label: "8 nocí" },
-    { value: 9, label: "9 nocí" },
-    { value: 10, label: "10 nocí" },
+    ...Array.from({ length: 10 }, (_, i) => ({
+        value: i + 1,
+        label: `${i + 1} ${i + 1 === 1 ? 'noc' : 'nocí'}`
+    })),
     { value: "vice", label: "víc nocí" },
 ]
 
@@ -80,11 +74,25 @@ const options_noci = [
 
 function FormularViceDnu() {
     const [seznam, setSeznam] = useState([]);
+    const [seznamy, setSeznamy] = useState({});
     const [typUbytovani, setTypUbytovani] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
-    const [noci, setNoci] = useState("")
+    const [noci, setNoci] = useState("");
+    const navigate = useNavigate();
 
-    const handleClick = () => {
+    useEffect(() => {
+        const ulozeny = localStorage.getItem("vyletySeznamy");
+        if (ulozeny) {
+            const parsed = JSON.parse(ulozeny);
+            setSeznamy(parsed);
+            if (typUbytovani && noci) {
+                const klic = `${typUbytovani}_${noci}`;
+                setSeznam(parsed[klic] || []);
+            }
+        }
+    }, [typUbytovani, noci]);
+
+    const vytvorSeznam = () => {
         if (!typUbytovani || !noci) {
             alert("Vyber si typ ubytování a počet nocí.");
             return;
@@ -105,18 +113,29 @@ function FormularViceDnu() {
                 zaklad = [];
         }
 
-/*přidání nové položky */
+        /*přidání nové položky */
         const finalniSeznam = generujSeznam(zaklad, noci);
+        const klic = `Ubytování - ${typUbytovani}, počet nocí: ${noci}`;
+
+        const noveSeznamy = {
+            ...seznamy,
+            [klic]: finalniSeznam,
+        }
         const radky = novaPolozka
             .split("\n")
             .map((r) => r.trim())
             .filter((r) => r !== '');
+
+        setSeznamy(noveSeznamy);
         setSeznam([...finalniSeznam, ...radky]);
         setNovaPolozka("");
     }
 
-/* různé drobné funkce*/
-
+    /* různé drobné funkce*/
+    const ulozAPresmeruj = () => {
+        localStorage.setItem("vyletySeznamy", JSON.stringify(seznamy));
+        navigate("/ulozene");
+    }
     const handleSelectNoci = (selected) => {
         if (selected) {
             setNoci(selected.value);
@@ -135,7 +154,7 @@ function FormularViceDnu() {
         localStorage.removeItem("seznamNaVylet");
         setSeznam([]);
     }
-   
+
     return (
         <div>
             <form className="form-obdobi uvod">
@@ -164,7 +183,7 @@ function FormularViceDnu() {
                     value={novaPolozka}
                     onChange={(e) => setNovaPolozka(e.target.value)} />
 
-                <div className="tlacitko" onClick={handleClick}>
+                <div className="tlacitko" onClick={vytvorSeznam}>
                     Vytvoř seznam
                 </div>
 
@@ -187,15 +206,21 @@ function FormularViceDnu() {
                                 </li>
                             ))}
                         </ul>
-                       {/*  <button className='tlacitko-uloz' onClick={ulozSeznam}>
-                            <FiTrash2 style={{ marginRight: '0.5em' }} /> Uložit seznam
-                        </button> */}
-                        <button className='tlacitko-tisk' onClick={() => window.print()}>
+                        <button className='tlacitko-tisk'
+                            onClick={() => window.print()}>
                             <FiPrinter style={{ marginRight: '0.5em' }} />
                             Vytisknout
                         </button>
-                        <button className='tlacitko-smazat' onClick={smazatSeznam}>
-                            <FiTrash2 style={{ marginRight: '0.5em' }} /> Smazat seznam
+                        <button
+                            className='tlacitko-tisk'
+                            onClick={ulozAPresmeruj}>
+                            <FiDownload style={{ marginRight: '0.5em' }} />
+                            Ulož
+                        </button>
+                        <button className='tlacitko-smazat'
+                            onClick={smazatSeznam}>
+                            <FiTrash2 style={{ marginRight: '0.5em' }} />
+                            Smazat seznam
                         </button>
                     </div>
                 </div>

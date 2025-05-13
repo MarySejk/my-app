@@ -27,9 +27,6 @@
 .label {
   padding-bottom: 1em;
 }
-.label-navic:hover {
-  border: var(--border);
-}
 
 .textarea {
   border-radius: var(--radius);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select from "react-select";
-import { FiPrinter } from "react-icons/fi";
-import { FiTrash2 } from "react-icons/fi";
+import { FiPrinter, FiDownload, FiTrash2 } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 import { JEDNODENNI_VODA } from '../data/jednodenni_voda';
 import { JEDNODENNI_MESTO } from '../data/jednodenni_mesto';
@@ -26,7 +26,6 @@ const mujStyl = {
         fontSize: "var(--font-size)",
         border: "var(--border)",
         backgroundColor: "var(--barva-pozadi)",
-
     }),
     option: (base, state) => ({
         ...base,
@@ -58,20 +57,18 @@ function Formular() {
     const [typVyletu, setTypVyletu] = useState("");
     const [obdobi, setObdobi] = useState("");
     const [novaPolozka, setNovaPolozka] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const ulozeny = localStorage.getItem("vyletySeznamy");
-        if (ulozeny) {
-            const parsed = JSON.parse(ulozeny);
-            setSeznamy(parsed);
-            if (typVyletu && obdobi) {
-                const klic = `${typVyletu}_${obdobi}`;
-                setSeznam(parsed[klic] || []);
-            }
+        const ulozeny = JSON.parse(localStorage.getItem("vyletySeznamy")) || {};
+        setSeznamy(ulozeny);
+        if (typVyletu && obdobi) {
+          const klic = `Výlet ${typVyletu} pro období: ${obdobi}`;
+          setSeznam(ulozeny[klic] || []);
         }
-    }, [typVyletu, obdobi]);
+      }, [typVyletu, obdobi]);
 
-    const handleClick = () => {
+    const vytvorSeznam = () => {
         if (!typVyletu || !obdobi) {
             alert("Vyber si typ výletu a roční období.");
             return;
@@ -101,7 +98,7 @@ function Formular() {
             .filter((r) => r !== '');
 
         const novySeznam = [...vybranySeznam, ...radky];
-        const klic = `${typVyletu}_${obdobi}`;
+        const klic = `Výlet ${typVyletu} pro období: ${obdobi}`;
 
         const noveSeznamy = {
             ...seznamy,
@@ -110,15 +107,17 @@ function Formular() {
         setSeznamy(noveSeznamy);
         setSeznam(novySeznam);
         setNovaPolozka("");
-
-        localStorage.setItem('vyletySeznamy', JSON.stringify(noveSeznamy));
+    }
+    const ulozAPresmeruj = () => {
+        localStorage.setItem("vyletySeznamy", JSON.stringify(seznamy));
+        navigate("/ulozene");
     }
 
     const handleSelectObdobi = (selected) => {
         if (selected) {
             const noveObdobi = selected.value;
             setObdobi(noveObdobi);
-            const klic = `${typVyletu}_${noveObdobi}`;
+            const klic = ` ${typVyletu} pro období: ${noveObdobi}`;
             setSeznam(seznamy[klic] || []);
         }
     }
@@ -128,7 +127,6 @@ function Formular() {
             const novyTyp = selected.value;
             setTypVyletu(novyTyp);
             const klic = `${novyTyp}_${obdobi}`;
-
             setSeznam(seznamy[klic] || []);
         }
     }
@@ -166,7 +164,7 @@ function Formular() {
                     value={novaPolozka}
                     onChange={(e) => setNovaPolozka(e.target.value)} />
 
-                <div className="tlacitko" onClick={handleClick}>
+                <div className="tlacitko" onClick={vytvorSeznam}>
                     Vytvoř seznam
                 </div>
 
@@ -183,8 +181,9 @@ function Formular() {
                             {seznam.map((item, index) => (
                                 <li key={index} className='seznam-item'>
                                     <label>
-                                        <input type='checkbox' className='seznam-check' />
-
+                                        <input
+                                            type='checkbox'
+                                            className='seznam-check' />
                                         {item}
                                     </label>
                                 </li>
@@ -198,14 +197,14 @@ function Formular() {
                         </button>
                         <button
                             className='tlacitko-tisk'
-                            onClick={handleClick}>
-                            <FiPrinter style={{ marginRight: '0.5em' }} />
+                            onClick={ulozAPresmeruj}>
+                            <FiDownload style={{ marginRight: '0.5em' }} />
                             Ulož
                         </button>
                         <button
                             className='tlacitko-smazat'
                             onClick={smazatSeznam}>
-                            <FiTrash2 style={{ marginRight: '0.5em' }} /> 
+                            <FiTrash2 style={{ marginRight: '0.5em' }} />
                             Smazat seznam
                         </button>
                     </div>

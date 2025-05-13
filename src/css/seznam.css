@@ -25,10 +25,11 @@
 }
 
 .seznam-check {
-    appearance: none; /* odstraní klasický vzhled */
+    appearance: none;
+    /* odstraní klasický vzhled */
     -webkit-appearance: none;
     -moz-appearance: none;
-    width:1.8em;
+    width: 1.8em;
     height: 1.8em;
     border-radius: 4px;
     position: relative;
@@ -36,21 +37,23 @@
     border: var(--border);
     transition: all 0.2s;
     vertical-align: middle;
-    }
-    
-    .seznam-check:checked {
+}
+
+.seznam-check:checked {
     background-color: var(--hlavni-barva);
     border-color: var(--hlavni-barva);
-    }
-    .seznam-check:checked::after {
-    content: "✓"; /* znak fajfky */
+}
+
+.seznam-check:checked::after {
+    content: "✓";
+    /* znak fajfky */
     color: var(--text-light);
     font-size: 16px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    } 
+}
 
 
 /* vygenerovaný seznam - samotný text */
@@ -65,20 +68,22 @@
 .seznam-item {
     list-style: none;
     margin-bottom: 0.4em;
-    font-size: var(--velikost-pisma);}
+    font-size: var(--velikost-pisma);
+}
 
 .seznam-item:hover {
-        text-decoration: underline;
-        text-decoration-color: var(--sekundarni-barva);
-        text-decoration-thickness: 0.3em;
-        text-underline-offset: 0.5em;
-      }
-
-
-.ulozeny-seznam  {
-   margin: 1em;
-   
+    text-decoration: underline;
+    text-decoration-color: var(--sekundarni-barva);
+    text-decoration-thickness: 0.3em;
+    text-underline-offset: 0.5em;
 }
+
+
+.ulozeny-seznam {
+    margin: 1em;
+
+}
+
 .ulozeny-seznam li {
     margin-bottom: 0.4em;
 }
@@ -108,11 +113,14 @@
     .nadpis,
     .tlacitko-tisk,
     .navigace,
-   .zapati {
+    .zapati,
+    .tlacitko-smazat,
+    .ulozeny-seznam {
         display: none;
     }
 
     .seznam-container,
+    .ulozeny-seznam.otevreny,
     .seznam {
         display: block;
         border: none;
@@ -120,14 +128,38 @@
         width: 100%;
         margin: 0;
     }
+
     .seznam-check {
         width: 1em;
         height: 1em;
     }
-  
+
 }
 
 .tlacitko-tisk:hover,
 .tlacitko-smazat:hover {
     transform: scale(1.05);
+}
+
+.seznam-ulozeny-zabaleny {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--velikost-pisma);
+}
+
+@media (min-width: 560px){
+    .seznam-ulozeny-zabaleny {
+        font-size: var(--velikost-pisma-vetsi);
+    }
+}
+
+.seznam-ulozeny-zabaleny:hover {
+    transition: var(--transition);
+    transform: scale(1.05)
+}
+
+.sipka {
+    color: var(--text-light);
+    margin-left: 0.5em;
 }
